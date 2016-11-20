@@ -1,2 +1,9 @@
 # setup
-Setup my personal environment
+
+Setup my personal dev environment
+
+# apply
+
+1. clone
+2. `git submodule init`
+3. `./apply.sh`
