@@ -1,28 +1,33 @@
 class code {
-  $codedir = "/home/${::id}/code"
+  include code::ruby
+  include code::go
+
+  $dir = "${::home}/code"
   file {
-    $codedir:
+    $dir:
       ensure => 'directory';
   }
 
   vcsrepo {
-    "${codedir}/dotfiles":
-      ensure   => present,
-      provider => git,
-      source   => 'git@github.com:byxorna/dotfiles.git';
-    "${codedir}/scripts":
+    "${dir}/dotfiles":
+      ensure     => present,
+      provider   => git,
+      submodules => true,
+      source     => 'git@github.com:byxorna/dotfiles.git';
+    "${dir}/scripts":
       ensure   => present,
       provider => git,
       source   => 'git@github.com:byxorna/scripts.git';
-    "${codedir}/setup":
-      ensure   => present,
-      provider => git,
-      source   => 'git@github.com:byxorna/setup.git';
+    "${dir}/setup":
+      ensure     => present,
+      provider   => git,
+      submodules => true,
+      source     => 'git@github.com:byxorna/setup.git';
   }
 
   if $::osfamily == 'Linux' {
     vcsrepo {
-      "${codedir}/german_linux_layout":
+      "${dir}/german_linux_layout":
         ensure   => present,
         provider => git,
         source   => 'git@github.com:byxorna/german_linux_layout.git';
