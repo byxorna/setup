@@ -1,6 +1,9 @@
 class code {
   include code::ruby
   include code::go
+  if $::osfamily == 'Darwin' {
+    include code::osx
+  }
 
   $dir = "${::home}/code"
   file {
